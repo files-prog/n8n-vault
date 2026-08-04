@@ -1,0 +1,43 @@
+# n8n Vault — standalone deployment next to an EXISTING n8n compose stack.
+#
+# This file does NOT define n8n: it only starts Vault and joins the Docker
+# network your n8n already runs on, so Vault reaches it internally as
+# http://n8n:5678 without exposing anything new.
+#
+# Find your network name first:   docker network ls | grep n8n
+# (a compose project in ~/n8n is usually "n8n_default")
+#
+# Start with:  docker compose -f docker-compose.standalone.yml up -d --build
+
+services:
+  vault:
+    build: .
+    container_name: n8n-vault
+    restart: unless-stopped
+    ports:
+      - "3444:3444"
+    environment:
+      - N8N_URL=http://n8n:5678
+      - N8N_PUBLIC_URL=${N8N_PUBLIC_URL:-}
+      - N8N_API_KEY=${N8N_API_KEY:?Create an API key in n8n under Settings > n8n API}
+      - APP_URL=${VAULT_APP_URL:-http://localhost:3444}
+      - ADMIN_EMAIL=${VAULT_ADMIN_EMAIL:-}
+      - ADMIN_PASSWORD=${VAULT_ADMIN_PASSWORD:-}
+      - SYNC_INTERVAL_SECONDS=${SYNC_INTERVAL_SECONDS:-60}
+      - SESSION_TTL_HOURS=${SESSION_TTL_HOURS:-8}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID:-}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET:-}
+      - GOOGLE_ALLOWED_DOMAIN=${GOOGLE_ALLOWED_DOMAIN:-}
+    volumes:
+      - vault_data:/app/data
+    networks:
+      - n8n-net
+
+volumes:
+  vault_data:
+
+networks:
+  n8n-net:
+    external: true
+    # The network your n8n containers use (check with: docker network ls):
+    name: n8n_n8n-net
