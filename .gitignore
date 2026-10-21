@@ -2,3 +2,14 @@
 data/
 node_modules/
 *.zip
+
+# --- Común a todos los repos: secretos, entornos y basura local ---
+.env
+.env.*
+!.env.example
+.venv/
+venv/
+__pycache__/
+*.pyc
+node_modules/
+*.log

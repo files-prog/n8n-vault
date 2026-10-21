@@ -124,3 +124,6 @@ npm test          # 25-check end-to-end suite against a mock n8n API
 Vault versions your **workflows**. The n8n **instance version** is versioned where it
 belongs: the pinned image tag in `docker-compose.yml` (`n8nio/n8n:1.122.5`). Keep that file
 in a small git repo and every upgrade is an auditable commit.
+
+## Cambiar algo
+Edita en tu portátil, `git commit` y `bash deploy/remoto.sh`: hace `git push` y el servidor hace `git pull` en su carpeta, que aplica los cambios solo (`deploy/aplicar.sh`) y vuelve al commit anterior si algo falla.
