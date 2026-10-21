@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign in · n8n Vault</title>
+  <link rel="stylesheet" href="/assets/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23ff6d5a'/%3E%3Cpath d='M10 22V10l12 12V10' stroke='%23fff' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+</head>
+<body class="login-body">
+  <main class="login-card" aria-label="Sign in">
+    <div class="login-logo" aria-hidden="true">
+      <svg viewBox="0 0 32 32" width="44" height="44"><rect width="32" height="32" rx="8" fill="#ff6d5a"/><path d="M10 22V10l12 12V10" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <h1>n8n Vault</h1>
+    <p class="login-subtitle">Version history for your workflows</p>
+
+    <div id="error" class="alert" role="alert" hidden></div>
+
+    <form id="login-form" autocomplete="on">
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" required autocomplete="username" placeholder="you@company.com" />
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" required autocomplete="current-password" placeholder="••••••••••" />
+      <button type="submit" class="btn btn-primary btn-block" id="submit">Sign in</button>
+    </form>
+
+    <div id="google-section" hidden>
+      <div class="login-divider"><span>or</span></div>
+      <a class="btn btn-outline btn-block" href="/auth/google">
+        <svg width="16" height="16" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.5l6.7-6.7C35.6 2.4 30.2 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.8 6C12.3 13.1 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8c4.4-4.1 7.1-10.1 7.1-17.5z"/><path fill="#FBBC05" d="M10.4 28.7a14.5 14.5 0 0 1 0-9.4l-7.8-6a24 24 0 0 0 0 21.4l7.8-6z"/><path fill="#34A853" d="M24 48c6.2 0 11.4-2 15.2-5.6l-7.5-5.8c-2.1 1.4-4.7 2.2-7.7 2.2-6.3 0-11.7-3.6-13.6-8.7l-7.8 6C6.5 42.6 14.6 48 24 48z"/></svg>
+        Continue with Google
+      </a>
+    </div>
+
+    <p class="login-footnote">Access is restricted. Contact your administrator if you need an account.</p>
+  </main>
+
+  <script src="/assets/login.js"></script>
+</body>
+</html>

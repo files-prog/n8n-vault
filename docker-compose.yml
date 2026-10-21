@@ -1,0 +1,52 @@
+# n8n + n8n Vault, side by side.
+#
+# The n8n image tag is PINNED on purpose: upgrading n8n is an explicit,
+# auditable change to this file — never an accident. Vault only talks to
+# n8n's stable public REST API, so upgrading n8n does not require any
+# change to Vault.
+
+services:
+  n8n:
+    image: n8nio/n8n:1.122.5
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=n8n.your-company.com
+      - N8N_PROTOCOL=https
+      - WEBHOOK_URL=https://n8n.your-company.com/
+      - GENERIC_TIMEZONE=America/Bogota
+    volumes:
+      - n8n_data:/home/node/.n8n
+
+  vault:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "3444:3444"
+    environment:
+      # --- Required -------------------------------------------------------
+      - N8N_URL=http://n8n:5678
+      - N8N_API_KEY=${N8N_API_KEY:?Create an API key in n8n under Settings > n8n API}
+      - APP_URL=${VAULT_APP_URL:-http://localhost:3444}
+
+      # --- First-run admin (only used while the user table is empty) ------
+      - ADMIN_EMAIL=${VAULT_ADMIN_EMAIL:-}
+      - ADMIN_PASSWORD=${VAULT_ADMIN_PASSWORD:-}
+
+      # --- Behavior --------------------------------------------------------
+      - SYNC_INTERVAL_SECONDS=60
+      - SESSION_TTL_HOURS=8
+
+      # --- Optional: Google Workspace sign-in ------------------------------
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID:-}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET:-}
+      - GOOGLE_ALLOWED_DOMAIN=${GOOGLE_ALLOWED_DOMAIN:-}
+    volumes:
+      - vault_data:/app/data
+    depends_on:
+      - n8n
+
+volumes:
+  n8n_data:
+  vault_data:

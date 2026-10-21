@@ -1,0 +1,20 @@
+{
+  "name": "n8n-vault",
+  "version": "1.0.0",
+  "description": "Secure version history for self-hosted n8n. Automatic change detection, meaningful diffs, one-click rollback.",
+  "license": "MIT",
+  "type": "commonjs",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node test/e2e.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^11.3.0",
+    "express": "^4.19.2"
+  }
+}
